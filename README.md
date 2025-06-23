@@ -1,11 +1,39 @@
-# React + TypeScript + Vite
+# Who's That Pokémon? (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to "Who's That Pokémon?" — a fun web game where you guess the Pokémon based on their silhouette! This app challenges your Pokémon knowledge and your spelling skills.
 
-Currently, two official plugins are available:
+## How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- A random Pokémon silhouette is shown on the screen.
+- Type your guess for the Pokémon's name in the input box.
+- You must spell the name correctly to get it right!
+- If you guess correctly, you'll see the full Pokémon image and can try another.
+- Try to guess as many as you can!
+
+## Features
+
+- 100s of Pokémon silhouettes to guess from.
+- Instant feedback on your guess.
+- Encourages correct spelling of Pokémon names.
+- Clean, responsive interface built with React, TypeScript, and Vite.
+
+## Screenshots
+
+<img src="./Screenshot%202025-06-22%20at%204.43.33%E2%80%AFPM.png" alt="Game silhouette view" width="600" />
+
+<img src="./Screenshot%202025-06-22%20at%204.48.38%E2%80%AFPM.png" alt="Correct answer view" width="600" />
+
+## Getting Started
+
+1. Clone the repo and install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open your browser to the local address shown in the terminal.
 
 ## Expanding the ESLint configuration
 
