@@ -45,8 +45,8 @@ const PokemonInput: React.FC = () => {
         setPikachuImage("/pikachu%20thunderbolt.png"); // Change Pikachu image on check
         setTimeout(() => setPikachuImage("/pikachu.png"), 1200); // Revert after 400ms
         try {
-            const response = await axios.get(`/api/pokemon/checkPokemon/${pokemonName}`);
-            if (response.data.valid) {
+            const response = await axios.get(`/api/pokemon/checkRandomPokemon/${pokemonName}`);
+            if (response.data.correct === true) {
                 setMessage("You Got It!");
                 setCount((c: number) => c + 1);
             } else {

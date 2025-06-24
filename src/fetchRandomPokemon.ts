@@ -1314,11 +1314,14 @@ export function fetchRandomPokemon(): Pokemon {
         "1024 Terapagos Terastal.png",
         "1025 Pecharunt.png"
     ];
-    const randomIndex = Math.floor(Math.random() * pokemonImages.length);
-    const randomImage = pokemonImages[randomIndex];
-    const name = randomImage.substring(5);
+    // const randomImage = pokemonImages[randomIndex];
+    // const name = randomImage.substring(5);
+    const gen1PokemonList = pokemonImages.filter(image => parseInt(image.substring(0, 4)) <= 151);
+    const randomGen1Index = Math.floor(Math.random() * gen1PokemonList.length);
+    const gen1PokemonImage = gen1PokemonList[randomGen1Index];
+    const randomGen1PokemonName = gen1PokemonImage.substring(5);
     return {
-        name,
-        imagePath: `/pokemonImages/${randomImage}`
-    };
+        name: randomGen1PokemonName,
+        imagePath: `/pokemonImages/${gen1PokemonImage}`,
+    }
 }
