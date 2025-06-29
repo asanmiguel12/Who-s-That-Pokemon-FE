@@ -5,15 +5,18 @@ import { fetchRandomPokemon } from "./fetchRandomPokemon.ts";
 import type { Pokemon } from "./fetchRandomPokemon.ts";
 import { CountContext } from "./CountContext";
 
-const PokemonInput: React.FC = () => {
+const PokemonMain: React.FC = () => {
     const [pokemonName, setPokemonName] = useState("");
     const [message, setMessage] = useState("");
     const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
     const [pikachuImage, setPikachuImage] = useState("/pikachu.png");
     const { setCount } = useContext(CountContext);
+    const [letterCount, setLetterCount] = useState<number>(0);
 
     useEffect(() => {
-        setRandomPokemon(fetchRandomPokemon());
+        const pokemon = fetchRandomPokemon();
+        setRandomPokemon(pokemon);
+        setLetterCount(countLetters(pokemon.name));
     }, []);
 
     useEffect(() => {
@@ -41,6 +44,15 @@ const PokemonInput: React.FC = () => {
         }
     }, [message]);
 
+    const countLetters = (name: string): number => {
+        return name.split("").reduce((acc, char) => {
+            if (char !== " ") { // Ignore spaces
+                acc += 1;
+            }
+            return acc;
+        }, 0);
+    };
+
     const checkPokemon = async () => {
         setPikachuImage("/pikachu%20thunderbolt.png"); // Change Pikachu image on check
         setTimeout(() => setPikachuImage("/pikachu.png"), 1200); // Revert after 400ms
@@ -54,6 +66,7 @@ const PokemonInput: React.FC = () => {
             }
         } catch (error) {
             setMessage("You Didn't Make A Guess, Try Again!");
+            console.error(error);
         }
     };
 
@@ -126,8 +139,7 @@ const PokemonInput: React.FC = () => {
                 gap: '8px',
                 marginTop: 0
             }}>
-                {message && (
-                    <div style={{
+                {message && (<div style={{
                         position: 'absolute',
                         left: '50%',
                         top: '30%',
@@ -150,30 +162,31 @@ const PokemonInput: React.FC = () => {
                         transition: 'all 0.2s cubic-bezier(.4,2,.6,1)'
                     }}>
                         {message}
-                    </div>
-                )}
-                <input
-                    type="text"
-                    placeholder="Type Pokemon Name"
-                    value={pokemonName}
-                    onChange={(e) => setPokemonName(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            checkPokemon();
-                        }
-                    }}
-                    style={{
-                        fontSize: '1.4em',
-                        padding: '0.8em 1.5em',
-                        width: 520,
-                        borderRadius: 32,
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                        border: '1.5px solid #0074ff',
-                        outline: 'none',
-                        marginTop: '-400px',
-                    }}
-                />
-                <div style={{ display: 'flex', flexDirection: 'row', gap: 12, width: '100%', justifyContent: 'center' }}>
+                    </div>)}
+                <div style={{display: 'flex', gap: '8px', marginTop: '-400px'}}>
+                    {randomPokemon?.name.split("").map((_, index) => (<input
+                            key={index}
+                            type="text"
+                            maxLength={1}
+                            value={pokemonName[index] || ""}
+                            onChange={(e) => {
+                                const newPokemonName = pokemonName.split("");
+                                newPokemonName[index] = e.target.value.toUpperCase();
+                                setPokemonName(newPokemonName.join(""));
+                            }}
+                            style={{
+                                fontSize: '1.4em',
+                                padding: '0.8em',
+                                width: 40,
+                                textAlign: 'center',
+                                borderRadius: 8,
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                                border: '1.5px solid #0074ff',
+                                outline: 'none',
+                            }}
+                        />))}
+                </div>
+                <div style={{display: 'flex', flexDirection: 'row', gap: 12, width: '100%', justifyContent: 'center'}}>
                     <button onClick={checkPokemon} style={{
                         fontSize: '1.2em',
                         padding: '0.6em 1.2em',
@@ -211,4 +224,4 @@ const PokemonInput: React.FC = () => {
         </div>);
 };
 
-export default PokemonInput;
+export default PokemonMain;

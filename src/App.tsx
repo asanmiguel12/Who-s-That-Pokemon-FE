@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import PokemonInput from "./PokemonInput";
+import PokemonMain from "./PokemonMain.tsx";
 import { CountContext } from "./CountContext";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
           <img src="/mainlogo.png" alt="Pokemon Gotta Spell 'Em All" style={{ width: 480, maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto', filter: 'drop-shadow(0 0 0 #fff) drop-shadow(0 0 4px #fff) drop-shadow(2px 2px 0 #fff) drop-shadow(-2px -2px 0 #fff) drop-shadow(2px -2px 0 #fff) drop-shadow(-2px 2px 0 #fff)' }} />
         </div>
         <div className="pokemon-bg-wrapper" style={{ width: '100%', maxWidth: 480, margin: '0 auto' }}>
-          <PokemonInput />
+          <PokemonMain />
         </div>
         {/* Counter moved to bottom right with fire symbol */}
         <div style={{

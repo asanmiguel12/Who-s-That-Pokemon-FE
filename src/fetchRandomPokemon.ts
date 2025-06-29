@@ -38,20 +38,6 @@ export function fetchRandomPokemon(): Pokemon {
         "0023 Ekans.png",
         "0024 Arbok.png",
         "0025 Pikachu.png",
-        "0025 Pikachu Alola.png",
-        "0025 Pikachu Belle.png",
-        "0025 Pikachu Gigantamax.png",
-        "0025 Pikachu Hoenn.png",
-        "0025 Pikachu Kalos.png",
-        "0025 Pikachu Libre.png",
-        "0025 Pikachu Original.png",
-        "0025 Pikachu Partner.png",
-        "0025 Pikachu PhD.png",
-        "0025 Pikachu Pop Star.png",
-        "0025 Pikachu Rock Star.png",
-        "0025 Pikachu Sinnoh.png",
-        "0025 Pikachu Unova.png",
-        "0025 Pikachu World.png",
         "0026 Raichu.png",
         "0026 Raichu Alola.png",
         "0027 Sandshrew.png",
@@ -1313,7 +1299,16 @@ export function fetchRandomPokemon(): Pokemon {
         "1024 Terapagos.png",
         "1024 Terapagos Terastal.png",
         "1025 Pecharunt.png"
-    ];
+    ].filter(name => {
+        const lower = name.toLowerCase();
+        return !(
+            lower.includes('alola') ||
+            lower.includes('mega') ||
+            lower.includes('gigantamax') ||
+            lower.includes('galar') ||
+            lower.includes('hisui')
+        );
+    });
     // const randomImage = pokemonImages[randomIndex];
     // const name = randomImage.substring(5);
     const gen1PokemonList = pokemonImages.filter(image => parseInt(image.substring(0, 4)) <= 151);
