@@ -11,6 +11,7 @@ const PokemonMain: React.FC = () => {
     const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
     const [pikachuImage, setPikachuImage] = useState("/pikachu.png");
     const {setCount} = useContext(CountContext);
+    const [reveal, setReveal] = useState(false);
 
     useEffect(() => {
         const pokemon = fetchRandomPokemon();
@@ -44,7 +45,8 @@ const PokemonMain: React.FC = () => {
     }, [message]);
 
     const checkPokemon = async () => {
-        setPikachuImage("/pikachu%20thunderbolt.png"); // Change Pikachu image on check
+        setPikachuImage("/pikachu%20thunderbolt.png");
+        setReveal(true); // Change Pikachu image on check
         setTimeout(() => setPikachuImage("/pikachu.png"), 1200); // Revert after 400ms
         try
         {
@@ -74,6 +76,11 @@ const PokemonMain: React.FC = () => {
         setRandomPokemon(fetchRandomPokemon());
         setPokemonName("");
         setMessage("");
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPokemonName(e.target.value);
+        setReveal(false); // Reset reveal state on new input
     };
 
     return (<div
@@ -159,7 +166,6 @@ const PokemonMain: React.FC = () => {
                             minWidth: 220,
                             textAlign: 'center',
                             letterSpacing: 2,
-                            textTransform: 'uppercase',
                             transition: 'all 0.2s cubic-bezier(.4,2,.6,1)',
                         }}
                     >
@@ -170,7 +176,7 @@ const PokemonMain: React.FC = () => {
                         type="text"
                         placeholder="Type Pokemon Name"
                         value={pokemonName}
-                        onChange={(e) => setPokemonName(e.target.value.toUpperCase())}
+                        onChange={handleInputChange}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter')
                             {
@@ -183,35 +189,43 @@ const PokemonMain: React.FC = () => {
                             width: 520,
                             borderRadius: 32,
                             boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                            border: '1.5px solid #0074ff',
+                            border: '3.5px solid #0074ff',
                             outline: 'none',
                             marginTop: '-400px',
                         }}
                     />
-                    <div style={{display: 'flex', gap: '8px', marginTop: '16px'}}>
-                        {randomPokemon && randomPokemon.name.split('').map((char, index) => (<div
-                                key={index}
-                                style={{
-                                    fontSize: '1.4em',
-                                    padding: '1em',
-                                    width: 40,
-                                    textAlign: 'center',
-                                    borderRadius: 12,
-                                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                                    border: '3.5px solid #0074ff',
-                                    backgroundColor: pokemonName[index] === char.toUpperCase() ? '#90ee90' // Green for correct letters
-                                        : pokemonName[index] ? '#ffcccb' // Red for incorrect letters
-                                            : '#fff', // Default background
-                                    color: '#000',
-                                    fontWeight: 'bold',
-                                }}
-                            >
-                                {pokemonName[index] || ''}
-                            </div>))}
-                    </div>
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+                        {randomPokemon?.name?.toUpperCase() &&
+                            randomPokemon.name.split('').map((char, index) => (
+                                <div
+                                    key={index}
+                                    style={{
+                                        backgroundColor: reveal
+                                            ? pokemonName[index]?.toUpperCase() === char.toUpperCase()
+                                                ? '#4be04b' // Green for correct letters
+                                                : pokemonName[index]
+                                                    ? '#e22520' // Red for incorrect letters
+                                                    : '#fff' // Default background
+                                            : '#fff', // Default before reveal
+                                        border: '3.5px solid #0074ff',
+                                        borderRadius: 12,
+                                        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                                        color: '#000',
+                                        fontSize: '1.4em',
+                                        fontWeight: 'bold',
+                                        padding: '1em',
+                                        textAlign: 'center',
+                                        height: 12,
+                                        width: 20,
+                                    }}
+                                >
+                                    {pokemonName[index] || ''}
+                                </div>
+                            ))}
+                    </div>;
                     <div
                         style={{
-                            display: 'flex', flexDirection: 'row', gap: 12, width: '100%', justifyContent: 'center',
+                            display: 'flex', flexDirection: 'row', gap: 12, width: '100%', justifyContent: 'center', marginTop: -20,
                         }}
                     >
                         <button
@@ -252,7 +266,7 @@ const PokemonMain: React.FC = () => {
                         src={pikachuImage}
                         alt="Pikachu"
                         style={{
-                            width: 108, height: 108, imageRendering: 'pixelated', display: 'block', marginTop: -30,
+                            width: 108, height: 108, imageRendering: 'pixelated', display: 'block', marginTop: -310, marginRight: -400, transition: 'transform 0.4s ease-in-out',
                         }}
                     />
                 </div>
