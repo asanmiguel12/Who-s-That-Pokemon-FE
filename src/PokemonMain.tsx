@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import axios from "axios";
 import confetti from "canvas-confetti";
 import { fetchRandomPokemon } from "./fetchRandomPokemon.ts";
@@ -11,12 +11,11 @@ const PokemonMain: React.FC = () => {
     const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
     const [pikachuImage, setPikachuImage] = useState("/pikachu.png");
     const { setCount } = useContext(CountContext);
-    const [letterCount, setLetterCount] = useState<number>(0);
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
     useEffect(() => {
         const pokemon = fetchRandomPokemon();
         setRandomPokemon(pokemon);
-        setLetterCount(countLetters(pokemon.name));
     }, []);
 
     useEffect(() => {
@@ -44,14 +43,6 @@ const PokemonMain: React.FC = () => {
         }
     }, [message]);
 
-    const countLetters = (name: string): number => {
-        return name.split("").reduce((acc, char) => {
-            if (char !== " ") { // Ignore spaces
-                acc += 1;
-            }
-            return acc;
-        }, 0);
-    };
 
     const checkPokemon = async () => {
         setPikachuImage("/pikachu%20thunderbolt.png"); // Change Pikachu image on check
@@ -163,28 +154,49 @@ const PokemonMain: React.FC = () => {
                     }}>
                         {message}
                     </div>)}
-                <div style={{display: 'flex', gap: '8px', marginTop: '-400px'}}>
-                    {randomPokemon?.name.split("").map((_, index) => (<input
-                            key={index}
-                            type="text"
-                            maxLength={1}
-                            value={pokemonName[index] || ""}
-                            onChange={(e) => {
-                                const newPokemonName = pokemonName.split("");
-                                newPokemonName[index] = e.target.value.toUpperCase();
-                                setPokemonName(newPokemonName.join(""));
-                            }}
-                            style={{
-                                fontSize: '1.4em',
-                                padding: '0.8em',
-                                width: 40,
-                                textAlign: 'center',
-                                borderRadius: 8,
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                                border: '1.5px solid #0074ff',
-                                outline: 'none',
-                            }}
-                        />))}
+                <div style={{ display: 'flex', gap: '8px', marginTop: '-400px' }}>
+                    {randomPokemon && (() => {
+                        // Only show input for non-space characters
+                        const nameNoSpaces = randomPokemon.name.replace(/ /g, "");
+                        // Reset refs array length to match input count
+                        inputRefs.current = Array(nameNoSpaces.length).fill(null);
+                        return nameNoSpaces.split("").map((_, index) => (<input
+                                key={index}
+                                type="text"
+                                maxLength={1}
+                                value={pokemonName[index] || ""}
+                                ref={el => {
+                                    inputRefs.current[index] = el;
+                                }}
+                                onChange={e => {
+                                    const newPokemonName = pokemonName.split("");
+                                    newPokemonName[index] = e.target.value.toUpperCase();
+                                    setPokemonName(newPokemonName.join(""));
+                                    // Move to the next input box
+                                    if (e.target.value && index < nameNoSpaces.length - 1)
+                                    {
+                                        inputRefs.current[index + 1]?.focus();
+                                    }
+                                }}
+                                onKeyDown={e => {
+                                    if (e.key === "Enter")
+                                    {
+                                        checkPokemon();
+                                    }
+                                }}
+                                style={{
+                                    fontSize: '1.4em',
+                                    padding: '1em',
+                                    width: 40,
+                                    textAlign: 'center',
+                                    borderRadius: 12,
+                                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                                    border: '3.5px solid #0074ff',
+                                    outline: 'none',
+                                    cursor: 'pointer',
+                                }}
+                            />));
+                    })()}
                 </div>
                 <div style={{display: 'flex', flexDirection: 'row', gap: 12, width: '100%', justifyContent: 'center'}}>
                     <button onClick={checkPokemon} style={{
@@ -201,9 +213,7 @@ const PokemonMain: React.FC = () => {
                         Check Answer
                     </button>
                     <button onClick={resetGame} style={{
-                        fontSize: '1.2em',
-                        padding: '0.6em 1.2em',
-                        borderRadius: 32,
+                        fontSize: '1.2em', padding: '0.6em 1.2em', borderRadius: 32,
                         backgroundColor: '#0074ff',
                         color: '#fff',
                         border: 'none',

@@ -1306,7 +1306,10 @@ export function fetchRandomPokemon(): Pokemon {
             lower.includes('mega') ||
             lower.includes('gigantamax') ||
             lower.includes('galar') ||
-            lower.includes('hisui')
+            lower.includes('hisui') ||
+            lower.includes('paldea') ||
+            lower.includes('origin') ||
+            lower.includes('zen')
         );
     });
     // const randomImage = pokemonImages[randomIndex];
@@ -1314,9 +1317,10 @@ export function fetchRandomPokemon(): Pokemon {
     const gen1PokemonList = pokemonImages.filter(image => parseInt(image.substring(0, 4)) <= 151);
     const randomGen1Index = Math.floor(Math.random() * gen1PokemonList.length);
     const gen1PokemonImage = gen1PokemonList[randomGen1Index];
-    const randomGen1PokemonName = gen1PokemonImage.substring(5);
+    const randomGen1PokemonName = gen1PokemonImage.substring(5).replace('.png', '');
+
     return {
         name: randomGen1PokemonName,
         imagePath: `/pokemonImages/${gen1PokemonImage}`,
-    }
+    };
 }
