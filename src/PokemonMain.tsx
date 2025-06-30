@@ -189,7 +189,7 @@ const PokemonMain: React.FC = () => {
                             width: 520,
                             borderRadius: 32,
                             boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                            border: '3.5px solid #0074ff',
+                            border: '4.5px solid #0074ff',
                             outline: 'none',
                             marginTop: '-400px',
                         }}
@@ -207,7 +207,7 @@ const PokemonMain: React.FC = () => {
                                                     ? '#e22520' // Red for incorrect letters
                                                     : '#fff' // Default background
                                             : '#fff', // Default before reveal
-                                        border: '3.5px solid #0074ff',
+                                        border: '4.5px solid #0074ff',
                                         borderRadius: 12,
                                         boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
                                         color: '#000',
