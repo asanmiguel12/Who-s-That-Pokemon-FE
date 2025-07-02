@@ -10,8 +10,10 @@ const PokemonMain: React.FC = () => {
     const [message, setMessage] = useState("");
     const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
     const [pikachuImage, setPikachuImage] = useState("/pikachu.png");
-    const {setCount} = useContext(CountContext);
+    const {count, setCount} = useContext(CountContext);
     const [reveal, setReveal] = useState(false);
+    const [hasGuessedCorrectly, setHasGuessedCorrectly] = useState(false);
+
 
     useEffect(() => {
         const pokemon = fetchRandomPokemon();
@@ -46,36 +48,37 @@ const PokemonMain: React.FC = () => {
 
     const checkPokemon = async () => {
         setPikachuImage("/pikachu%20thunderbolt.png");
-        setReveal(true); // Change Pikachu image on check
-        setTimeout(() => setPikachuImage("/pikachu.png"), 1200); // Revert after 400ms
-        try
-        {
+        setReveal(true);
+        setTimeout(() => setPikachuImage("/pikachu.png"), 1200);
+        try {
             const response = await axios.get(`/api/pokemon/checkRandomPokemon/${pokemonName}`);
-            if (response.data.correct === true)
-            {
-                setMessage("You Got It!");
-                setCount((c: number) => c + 1);
-            }
-            else
-            {
+            if (response.data.correct === true) {
+                if (!hasGuessedCorrectly) {
+                    setMessage("You Got It!");
+                    setCount((c: number) => c + 1);
+                    setHasGuessedCorrectly(true);
+                    axios.post(`/api/pokemon/updateStreak/${count + 1}`)
+                        .catch((error) => console.error("Failed to update streak:", error));
+                } else {
+                    setMessage("Press Next Pokémon to Continue!");
+                }
+            } else {
                 setMessage("Hmm Try Again!");
             }
-        }
-        catch (error)
-        {
+        } catch (error) {
             setMessage("You Didn't Make A Guess, Try Again!");
             console.error(error);
         }
     };
 
     const resetGame = () => {
-        if (!pokemonName)
-        {
-            setCount(0); // Reset streak if no guess was made
+        if (!pokemonName) {
+            setCount(0);
         }
         setRandomPokemon(fetchRandomPokemon());
         setPokemonName("");
         setMessage("");
+        setHasGuessedCorrectly(false); // Reset for the next Pokémon
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -212,6 +215,7 @@ const PokemonMain: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
                                         color: '#000',
                                         fontSize: '1.4em',
+                                        fontFamily: 'Impact, "Pokemon Solid", "Arial Black", Arial, sans-serif',
                                         fontWeight: 'bold',
                                         padding: '1em',
                                         textAlign: 'center',
@@ -233,6 +237,7 @@ const PokemonMain: React.FC = () => {
                             style={{
                                 fontSize: '1.2em',
                                 padding: '0.6em 1.2em',
+                                fontWeight: 700,
                                 borderRadius: 32,
                                 backgroundColor: '#0074ff',
                                 color: '#fff',
