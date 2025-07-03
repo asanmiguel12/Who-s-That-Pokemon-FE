@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 import PokemonMain from "./PokemonMain.tsx";
 import { CountContext } from "./CountContext";
 
 function App() {
   const [count, setCount] = useState(0)
+
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'hidden';
+        };
+    }, []);
 
   return (<CountContext.Provider value={{count, setCount}}>
     <div style={{
@@ -48,7 +55,7 @@ function App() {
         {count}
       </div>
     </div>
-    <div style={{ position: 'fixed', top: '28%', right: '800px', transform: 'translateY(-50%)', zIndex: 9999}}>
+    <div style={{ position: 'fixed', top: '78%', right: '612px', transform: 'translateY(-50%)', zIndex: 9999, overflow: 'inherit' }}>
       <div
           style={{
             position: 'relative', display: 'inline-block',
@@ -102,7 +109,7 @@ function App() {
               whiteSpace: 'wrap',
             }}
         >
-          Guess the Pokémon by typing its name! Use hints and try to get a streak!
+          Try spelling the Pokémon silhouette correctly! Use the boxes below to help you! Try your best to get the highest streak possible!<br/>
         </div>
       </div>
     </div>

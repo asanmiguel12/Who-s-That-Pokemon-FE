@@ -169,7 +169,7 @@ export function fetchRandomPokemon(): Pokemon {
         "0119 Seaking.png",
         "0120 Staryu.png",
         "0121 Starmie.png",
-        "0122 Mr. Mime .png",
+        "0122 Mr Mime.png",
         "0122 Mr. Mime Galar.png",
         "0123 Scyther.png",
         "0124 Jynx.png",
