@@ -36,4 +36,4 @@ EXPOSE 8081
 
 ENV PORT 8081
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
