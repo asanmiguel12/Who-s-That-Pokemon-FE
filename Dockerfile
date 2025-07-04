@@ -34,6 +34,6 @@ USER nextjs
 
 EXPOSE 8081
 
-ENV PORT 8082
+ENV PORT 8081
 
 CMD ["npm", "start"]
