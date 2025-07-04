@@ -14,7 +14,7 @@ COPY src .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN npm build
+RUN npm run build
 
 FROM base AS runner
 WORKDIR /app
