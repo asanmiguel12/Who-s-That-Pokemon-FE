@@ -102,7 +102,7 @@ const PokemonMain: React.FC = () => {
                         borderRadius: '50%',
                         background: '#fff',
                         boxShadow: '0 0 32px 0 #0074ff44',
-                        border: '6px solid #3264e6',
+                        border: '8px solid #3264e6',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',

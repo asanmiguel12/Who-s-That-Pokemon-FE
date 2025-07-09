@@ -7,7 +7,11 @@ export default defineConfig({
   server: {
     port: 8081,
     proxy: {
-      '/api': 'http://localhost:8082',
+      '/api': {
+        target: 'https://whos-that-pokemon-be.vercel.app',
+        changeOrigin: true,
+        secure: true,
+      },
     },
   },
 })
