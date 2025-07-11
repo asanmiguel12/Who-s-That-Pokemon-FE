@@ -51,13 +51,13 @@ const PokemonMain: React.FC = () => {
         setReveal(true);
         setTimeout(() => setPikachuImage("/pikachu.png"), 1200);
         try {
-            const response = await axios.get(`https://whos-that-pokemon-be.vercel.app/api/pokemon/checkRandomPokemon/${pokemonName}`);
+            const response = await axios.get(`https://https://whos-that-pokemon-be.onrender.com/api/pokemon/checkRandomPokemon/${pokemonName}`);
             if (response.data.correct === true) {
                 if (!hasGuessedCorrectly) {
                     setMessage("You Got It!");
                     setCount((c: number) => c + 1);
                     setHasGuessedCorrectly(true);
-                    axios.post(`https://whos-that-pokemon-be.vercel.app/api/pokemon/updateStreak/${count + 1}`)
+                    axios.post(`https://whos-that-pokemon-be.onrender.com/api/pokemon/updateStreak/${count + 1}`)
                         .catch((error) => console.error("Failed to update streak:", error));
                 } else {
                     setMessage("Press Next Pokémon to Continue!");

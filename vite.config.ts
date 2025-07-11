@@ -8,7 +8,7 @@ export default defineConfig({
     port: 8081,
     proxy: {
       '/api': {
-        target: 'https://whos-that-pokemon-be.vercel.app',
+        target: 'https://whos-that-pokemon-be.onrender.com',
         changeOrigin: true,
         secure: true,
       },
