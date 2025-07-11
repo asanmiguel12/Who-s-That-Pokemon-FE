@@ -24,7 +24,7 @@ const PokemonMain: React.FC = () => {
         if (randomPokemon)
         {
             axios
-                .post(`https://whos-that-pokemon-be.vercel.app/api/pokemon/storeRandomPokemon/${randomPokemon.name}`)
+                .post(`https://whos-that-pokemon-be.onrender.com/api/pokemon/storeRandomPokemon/${randomPokemon.name}`)
                 .catch((error) => console.error("Failed to send Pokémon to the backend:", error));
         }
     }, [randomPokemon]);
