@@ -1,16 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+const isLocal = process.env.LOCAL === 'true'
+
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 8081,
+    port: isLocal ? 3000 : 8081,
     proxy: {
       '/api': {
-        target: 'https://whos-that-pokemon-be.onrender.com',
+        target: isLocal
+          ? 'http://localhost:3001'
+          : 'https://whos-that-pokemon-be.onrender.com',
         changeOrigin: true,
-        secure: true,
+        secure: !isLocal,
       },
     },
   },
