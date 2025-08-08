@@ -86,19 +86,24 @@ const PokemonMain: React.FC = () => {
         setReveal(false); // Reset reveal state on new input
     };
 
-    return (<div
-            style={{
-                minHeight: '60vh',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
+    return (
+      <div
+        style={{
+          width: '60vh',
+          maxWidth: '100%',
+          marginBottom: '10vh',
+          minHeight: '60vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
         >
             {randomPokemon && (<div
                     style={{
-                        width: 300,
-                        height: 300,
+                        width: 260,
+                        height: 260,
+                        marginTop: 10,
                         borderRadius: '50%',
                         background: '#fff',
                         boxShadow: '0 0 32px 0 #0074ff44',
@@ -119,9 +124,11 @@ const PokemonMain: React.FC = () => {
                         src={randomPokemon.imagePath}
                         alt={randomPokemon.name}
                         style={{
-                            width: 180,
-                            height: 180,
+                            width: 150,
+                            height: 150,
+                            maxWidth: '100%',
                             objectFit: 'contain',
+                            alignItems: 'center',
                             borderRadius: '0%',
                             filter: message === 'You Got It!' ? 'none' : 'brightness(0)',
                         }}
@@ -134,6 +141,7 @@ const PokemonMain: React.FC = () => {
                     width: 420,
                     height: 'auto',
                     display: 'block',
+                    alignItems: 'center',
                     marginBottom: 300,
                     filter: 'drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff)',
                 }}

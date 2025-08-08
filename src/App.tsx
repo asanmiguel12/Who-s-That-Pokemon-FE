@@ -16,6 +16,7 @@ function App() {
   return (<CountContext.Provider value={{count, setCount}}>
     <div style={{
       minHeight: '100vh',
+      maxWidth: '100%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
@@ -26,13 +27,13 @@ function App() {
         <img src="/mainlogo.png" alt="Pokemon Gotta Spell 'Em All" style={{
           width: 480,
           maxWidth: '100%',
-          height: 'auto',
+          height: 'flex',
           display: 'block',
           margin: '0 auto',
           filter: 'drop-shadow(0 0 0 #fff) drop-shadow(0 0 4px #fff) drop-shadow(2px 2px 0 #fff) drop-shadow(-2px -2px 0 #fff) drop-shadow(2px -2px 0 #fff) drop-shadow(-2px 2px 0 #fff)'
         }}/>
       </div>
-      <div className="pokemon-bg-wrapper" style={{width: '100%', maxWidth: 480, margin: '0 auto'}}>
+      <div className="pokemon-bg-wrapper" style={{width: 480, maxWidth: '100%', margin: '0 auto'}}>
         <PokemonMain/>
       </div>
       <div style={{
