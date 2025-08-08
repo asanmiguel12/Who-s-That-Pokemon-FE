@@ -21,9 +21,9 @@ function App() {
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      paddingTop: 32
+      paddingTop: '12px',
     }}>
-      <div className="pokemon-header" style={{marginBottom: 24}}>
+      <div className="pokemon-header" style={{marginBottom: 28}}>
         <img src="/mainlogo.png" alt="Pokemon Gotta Spell 'Em All" style={{
           width: 480,
           maxWidth: '100%',
@@ -56,7 +56,7 @@ function App() {
         {count}
       </div>
     </div>
-    <div style={{ position: 'fixed', top: '78%', right: '612px', transform: 'translateY(-50%)', zIndex: 9999, overflow: 'inherit' }}>
+    <div style={{ position: 'fixed', top: '30%', right: '650px', transform: 'translateY(-50%)', overflow: 'inherit' }}>
       <div
           style={{
             position: 'relative', display: 'inline-block',

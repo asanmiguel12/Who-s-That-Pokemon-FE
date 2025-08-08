@@ -57,7 +57,7 @@ const PokemonMain: React.FC = () => {
                     setMessage("You Got It!");
                     setCount((c: number) => c + 1);
                     setHasGuessedCorrectly(true);
-                    axios.post(`https://whos-that-pokemon-be.onrender.com/api/pokemon/updateStreak/${count + 1}`)
+                    axios.post(`https://whos-that-pokemon-be.onrender.com/api/pokemon/logStreak/${count + 1}`)
                         .catch((error) => console.error("Failed to update streak:", error));
                 } else {
                     setMessage("Press Next Pokémon to Continue!");
@@ -103,7 +103,8 @@ const PokemonMain: React.FC = () => {
                     style={{
                         width: 260,
                         height: 260,
-                        marginTop: 10,
+                        marginTop: 2,
+                        marginBottom: 20,
                         borderRadius: '50%',
                         background: '#fff',
                         boxShadow: '0 0 32px 0 #0074ff44',
@@ -142,7 +143,7 @@ const PokemonMain: React.FC = () => {
                     height: 'auto',
                     display: 'block',
                     alignItems: 'center',
-                    marginBottom: 300,
+                    marginBottom: 290,
                     filter: 'drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff)',
                 }}
             />
@@ -237,7 +238,7 @@ const PokemonMain: React.FC = () => {
                     </div>;
                     <div
                         style={{
-                            display: 'flex', flexDirection: 'row', gap: 12, width: '100%', justifyContent: 'center', marginTop: -20,
+                            display: 'flex', flexDirection: 'row', gap: 10, width: '100%', justifyContent: 'center', marginTop: -20,
                         }}
                     >
                         <button
